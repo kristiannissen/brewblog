@@ -5,20 +5,8 @@ import (
 	"net/http"
 )
 
-type Paragraph struct {
-	Header    string `json:"header"`
-	Paragraph string `json:"paragraph"`
-}
-
-type Article struct {
-	Title      string      `json:"title"`
-	Intro      string      `json:"intro"`
-	Paragraphs []Paragraph `json:"paragraphs"`
-	Slug       string      `json:"slug"`
-}
-
 var ArticleList = []Article{
-	{Title: "Hello Kitty", Intro: "Hello kitty", Slug: "hello-kitty", Paragraphs: []Paragraph{
+	{Title: "Hello Kitty", Slug: "hello-kitty", Paragraphs: []Paragraph{
 		{Header: "Hello Kitty", Paragraph: "Hello Kitty"},
 		{Header: "Hello Kitty", Paragraph: "Hello Kitty"},
 	}},

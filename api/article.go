@@ -1,18 +1,43 @@
 package handler
 
 import (
-	"log"
 	"os"
 	"strings"
 )
 
-func GetArticle() (string, error) {
-	md, err := os.ReadFile("../content/sample.md")
+type Paragraph struct {
+	Header    string `json:"header"`
+	Paragraph string `json:"paragraph"`
+}
+
+type Article struct {
+	Title      string      `json:"title"`
+	Paragraphs []Paragraph `json:"paragraphs"`
+	Slug       string      `json:"slug"`
+}
+
+// TODO: should take file name as parameter
+func GetArticle() (Article, error) {
+	data, err := os.ReadFile("../content/sample.md")
 	if err != nil {
 		panic(err)
 	}
 
-	log.Printf("%q", strings.Split(string(md), "\n"))
+	// Split text into chunks
+	chunks := strings.Split(string(data), "\n\n")
+	article := Article{}
+	// Populate article
+	article.Title = strings.TrimPrefix(chunks[0], "# ")
+	// Pass rest into paragraphs
+	for _, v := range chunks[1:] {
+		para := Paragraph{}
+		if strings.HasPrefix(v, "#") {
+			para.Header = v
+		} else {
+			para.Paragraph = v
+		}
+		article.Paragraphs = append(article.Paragraphs, para)
+	}
 
-	return string(md), err
+	return article, err
 }
