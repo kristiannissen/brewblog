@@ -8,4 +8,4 @@ Infinite scroll
 https://amp.dev/documentation/components/websites/amp-next-page
 
 CSS reset
-https://piccalil.li/blog/a-more-modern-css-reset/
+https://github.com/tanrax/symbiosis-css/blob/master/symbiosis.css

@@ -1,61 +1,69 @@
 <!doctype html>
-<head amp lang="da">
-  <meta charset="utf-8">
-  <title>Hansen & Nissen</title>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <script async custom-element="amp-render" src="https://cdn.ampproject.org/v0/amp-render-1.0.js"></script>
-  <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <style amp-boilerplate>
-*, *::before, *::after {box-sizing: border-before}
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-}
-  body {
-  min-height: 100vh;
-  line-height: 1.5;
-  color: #101517;
-}
-  img,
-picture {
-  max-width: 100%;
-  display: block;
-}
-  h1 { font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; text-wrap: balance;}
-  p { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height:
-    18.5714px; }
-  header {
-    font-family: "Big Caslon";
-    font-weight: 700;
-    text-align: center;
-  }
-  header a {
-    text-decoration: none;
-    color: #101517;
-  }
-  #content {
-    padding: 0;
-    margin: 0 1em;
-  }
-  @media (min-width: 40em) {
-    body {
-    }
-    #content {
-      max-width: 700px;
-      margin-left: calc((100% - 700px) / 2);
-    } 
-  }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="/">Hansen <span class="amp">&amp;</span> Nissen</a>
-  </header>
-  <div id="content">
-  <h1>Hello Kitty</h1>
-  <p>Lorem ipsum dolor sit amet</p>
-  </div>
-</body>
+<html amp lang="da">
+	<head>
+		<meta charset="utf-8">
+		<title>Hansen & Nissen</title>
+		<!-- Amp stuff //-->
+		<script async src="https://cdn.ampproject.org/v0.js"></script>
+		<script async custom-element="amp-render" src="https://cdn.ampproject.org/v0/amp-render-1.0.js"></script>
+		<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+		<script async custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
+		<!-- Amp stuff //-->
+		<link rel="canonical" href="https://amp.dev/documentation/guides-and-tutorials/start/create/basic_markup/">
+   		<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+		</style>
+		<noscript>
+			<style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
+			</style>
+		</noscript>
+		<style amp-custom>
+		/* Custom stuff */
+		:root {
+			--unit: 4px;
+			--body-font-size: 16px;
+    			--body-line-height: 1.6;
+			--body-font-size: 16px;
+			--body-line-height: 1.6;
+			--space-8: 8rem;
+		}
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		html {
+			font-size: var(--unit);
+			box-sizing: border-box;
+			-webkit-text-size-adjust: 100%;
+			display: block;
+		}
+		*, ::after, ::before {}
+		body {
+			font-size: var(--body-font-size);
+			line-height: var(--body-line-height);
+		}
+		article h1 {
+			margin-bottom: var(--space-8);
+		}
+
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Hansen & Nissen</h1>
+		</header>
+		<main>
+			<amp-render class="" src="/api/articles?RANDOM" layout="fixed-height" height="600">
+				<template type="amp-mustache">
+					<article>
+						<h1>{{title}}</h1>
+						<p class="">{{intro}}</p>
+					</article>
+				</template>
+			</amp-render>
+		</main>
+		<footer>
+			Footer
+		</footer>
+	</body>
 </html>
