@@ -44,7 +44,7 @@ func Article(w http.ResponseWriter, r *http.Request) {
 	// Get URL param ?nme=file_name
 	slug := r.URL.Query().Get("name")
 	// Log the slug
-	log.Printf("Query is %s", name)
+	log.Printf("Query is %s", slug)
 	// Get article from storage
 	article, err := GetArticle(strings.ToLower(slug))
 	// Handle error
