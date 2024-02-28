@@ -6,5 +6,5 @@ import (
 )
 
 func Article(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "vim-go")
+	fmt.Fprintf(w, "article")
 }
