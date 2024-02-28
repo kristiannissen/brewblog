@@ -52,9 +52,10 @@ func Article(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error %s URL %s", err, slug)
 		// Notify user
 		fmt.Fprintf(w, "Not hotdog")
+	} else {
+		// Set the correct status
+		w.WriteHeader(http.StatusOK)
+		// Return data
+		fmt.Fprintf(w, article)
 	}
-	// Set the correct status
-	w.WriteHeader(http.StatusOK)
-	// Return data
-	fmt.Fprintf(w, article)
 }
