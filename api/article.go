@@ -43,6 +43,8 @@ func Article(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	// Get URL param ?nme=file_name
 	slug := r.URL.Query().Get("name")
+	// Log the slug
+	log.Printf("Query is %s", name)
 	// Get article from storage
 	article, err := GetArticle(strings.ToLower(slug))
 	// Handle error
