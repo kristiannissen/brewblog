@@ -22,7 +22,8 @@ func GetArticle(slug string) (string, error) {
 		return "", err
 	}
 	// Full path
-	p = filepath.Join(p + "/../content/" + slug + ".md")
+	p = filepath.Join(p + "/content/" + slug + ".md")
+	log.Println("File path " + p)
 	// Readfile
 	b, err = os.ReadFile(p)
 
