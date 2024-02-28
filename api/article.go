@@ -41,3 +41,8 @@ func GetArticle() (Article, error) {
 
 	return article, err
 }
+
+// Handler needed
+func Article(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintf(w, "Hello Kitty")
+}
