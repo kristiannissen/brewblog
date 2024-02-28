@@ -5,7 +5,7 @@ import (
 )
 
 func TestGetArticle(t *testing.T) {
-	a := GetArticle("hello")
+	a, _ := GetArticle("hello")
 
 	if a != "hello" {
 		t.Fatal("not hotdog")
