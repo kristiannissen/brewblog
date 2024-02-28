@@ -20,50 +20,107 @@
 		<style amp-custom>
 		/* Custom stuff */
 		:root {
-			--unit: 4px;
-			--body-font-size: 16px;
-    			--body-line-height: 1.6;
-			--body-font-size: 16px;
-			--body-line-height: 1.6;
-			--space-8: 8rem;
+			--body-font-size: 1rem;
+    	--body-line-height: 1.6;
+			--unit-05: 0.5rem;
+      --unit-1: 1rem;
+      --unit-2: 2rem;
+      --unit-3: 3rem;
+      --unit-4: 4rem;
+      --unit-5: 5rem;
+      --unit-6: 6rem;
+      --unit-8: 8rem;
+      --unit-10: 10rem;
+      --unit-12: 12rem;
+      --unit-16: 16rem;
+      --unit-20: 20rem;
+      --unit-24: 24rem;
+      --unit-30: 30rem;
+      --unit-36: 36rem;
+      --color-night: rgb(16, 15, 15);
+      --color-green: rgb(15, 61, 62);
+      --color-beige: rgb(226, 220, 200);
+      --color-white: rgb(241, 241, 241);
+      --font-family-heading: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
+      --font-family-copy: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;;
 		}
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		html {
-			font-size: var(--unit);
-			box-sizing: border-box;
-			-webkit-text-size-adjust: 100%;
-			display: block;
-		}
-		*, ::after, ::before {}
-		body {
-			font-size: var(--body-font-size);
-			line-height: var(--body-line-height);
-		}
-		article h1 {
-			margin-bottom: var(--space-8);
-		}
-
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-white);
+      font-family: var(--font-family-copy);
+      font-size: var(--body-font-size);
+      line-height: var(--body-line-height);
+    }
+    header {
+      background: var(--color-green);
+      display: flex;
+      justify-content: center;
+    }
+    header h1 {
+      font-family: var(--font-family-heading);
+      color: var(--color-white);
+    }
+    header h1 a {
+      text-decoration: none;
+      color: unset;
+    }
+    main {
+      padding: 0 var(--unit-05);
+    }
+    main article h1 {
+      font-family: var(--font-family-heading);
+      color: var(--color-green);
+      line-height: 1.15;
+      letter-spacing: -0.02rem;
+    }
+    footer {
+      background: var(--color-night);
+      color: var(--color-beige);
+      height: var(--unit-8);
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+    }
+    .column {
+      padding: 0 var(--unit-1);
+    }
+    /* Type utils */
+    .amp {
+      font-weight: 400;
+      font-size: var(--unit-3);
+    }
+    /* Generic */
+    a {
+      color: unset;
+      text-decoration: none;
+    }
 		</style>
 	</head>
 	<body>
 		<header>
-			<h1>Hansen & Nissen</h1>
+			<h1><a href="/">Hansen <span class="amp">&</span> Nissen</a></h1>
 		</header>
 		<main>
-			<amp-render class="" src="/api/articles?RANDOM" layout="fixed-height" height="600">
+			<amp-render class="" src="/articles.json?RANDOM" layout="responsive" height="100vh" width="100vw">
 				<template type="amp-mustache">
-					<article>
-						<h1>{{title}}</h1>
-						<p class="">{{intro}}</p>
+					{{#articles}}
+          <article>
+						<h1><a href="/article/{{slug}}">{{title}}</a></h1>
+            {{#paragraphs}}
+              <p>{{paragraph}}</p>
+            {{/paragraphs}}
 					</article>
+          {{/articles}}
 				</template>
 			</amp-render>
 		</main>
 		<footer>
-			Footer
+			<div class="column">
+			  1
+			</div>
+      <div class="column">2</div>
 		</footer>
 	</body>
 </html>
