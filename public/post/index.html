@@ -8,6 +8,7 @@
 		<script async custom-element="amp-render" src="https://cdn.ampproject.org/v0/amp-render-1.0.js"></script>
 		<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 		<script async custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
+    <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
 		<!-- Amp stuff //-->
 		<link rel="canonical" href="">
    		<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -112,28 +113,37 @@
 		</style>
 	</head>
 	<body>
-		<header>
-			<h1><a href="/">Hansen <span class="amp">&</span> Nissen</a></h1>
-		</header>
 		<main>
-			<amp-render class="" src="/articles.json?RANDOM" layout="responsive" height="0" width="320">
-				<template type="amp-mustache">
-					{{#articles}}
-          <article>
-						<h1><a href="/post/#{{slug}}">{{title}}</a></h1>
-            {{#paragraphs}}
-              <p>{{paragraph}}</p>
-            {{/paragraphs}}
-					</article>
-          {{/articles}}
-				</template>
-			</amp-render>
+		  <amp-story standalone title="Drink more beer">
+			  <amp-story-page id="cover">
+          <amp-story-grid-layer template="vertical">
+            <h1>Drink more beer</h1>
+            <p>By AMP Tutorials</p>
+          </amp-story-grid-layer>
+			  </amp-story-page>
+
+        <amp-story-page id="page1">
+          <amp-story-grid-layer template="vertical">
+            <h1>Beer</h1>
+            <q>Dogs come when they're called. Cats take a message and get back to you. --Mary Bly</q>
+          </amp-story-grid-layer>
+        </amp-story-page>
+
+        <amp-story-page id="page2">
+          <amp-story-grid-layer template="vertical">
+            <h1>Brewing</h1>
+            <q>Dogs come when they're called. Cats take a message and get back to you. --Mary Bly</q>
+          </amp-story-grid-layer>
+        </amp-story-page>
+
+        <amp-story-page id="page3">
+          <amp-story-grid-layer template="vertical">
+            <h1>Get drunk</h1>
+            <q>Dogs come when they're called. Cats take a message and get back to you. --Mary Bly</q>
+          </amp-story-grid-layer>
+        </amp-story-page>
+
+			</amp-story>
 		</main>
-		<footer>
-			<div class="column">
-			  1
-			</div>
-      <div class="column">2</div>
-		</footer>
 	</body>
 </html>
