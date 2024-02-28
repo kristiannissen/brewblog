@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func GetArticle(string slug) string {
-	return "Hello Kitty"
+func GetArticle(slug string) string {
+	return slug
 }
 
 func Article(w http.ResponseWriter, r *http.Request) {
