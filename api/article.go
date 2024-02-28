@@ -4,11 +4,37 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 )
 
 func GetArticle(slug string) (string, error) {
-	return slug, nil
+	var err error
+	var p string
+	var b []byte
+
+	// Find file
+	p, err = os.Getwd()
+
+	if err != nil {
+		log.Println(err)
+		return "", err
+	}
+	// Full path
+	p = filepath.Join(p + "/../content/" + slug + ".md")
+	// Readfile
+	b, err = os.ReadFile(p)
+
+	if err != nil {
+		log.Println(err)
+		return "", err
+	}
+
+	// Convert data
+	s := string(b)
+
+	return s, nil
 }
 
 func Article(w http.ResponseWriter, r *http.Request) {
