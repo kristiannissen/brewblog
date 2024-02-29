@@ -42,7 +42,11 @@
       --color-beige: rgb(226, 220, 200);
       --color-white: rgb(241, 241, 241);
       --font-family-heading: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
-      --font-family-copy: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;;
+      --font-family-copy: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+	  --heading-letter-spacing: -0.02em;
+	  --heading-line-height: 1.15;
+	  --heading-font-size: 44px;
+	  --heading-font-weight: 800;
 		}
     body {
       min-height: 100vh;
@@ -72,9 +76,28 @@
     main article h1 {
       font-family: var(--font-family-heading);
       color: var(--color-green);
-      line-height: 1.15;
-      letter-spacing: -0.02rem;
+      font-size: var(--heading-font-size);
+	  font-weight: var(--heading-font-weight);
+	  line-height: var(--heading-line-height);
+	  letter-spacing: var(--heading-letter-spacing);
     }
+	main article h2 {
+      margin-top: 64px;
+	  margin-bottom: 1em;
+	  font-weight: 700;
+	  font-size: 36px;
+	  line-height: 1.3;
+	  letter-spacing: -0.01em;
+    }
+	main article p {
+		margin-bottom: 2em;
+		font-size: 18px;
+		line-height: 1.7;
+		margin-top: 0;
+    }
+	main article p:last-child {
+		margin-bottom: 0;
+	}
     footer {
       background: var(--color-night);
       color: var(--color-beige);
@@ -99,6 +122,21 @@
         min-width: 37.5rem;
         margin: 0 auto;
       }
+	  main article h1 {
+		font-family: var(--font-family-heading);
+		color: var(--color-green);
+		font-size: 56px;
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.02;
+    }
+	main article h2 {
+	  margin-bottom: 1em;
+	  font-weight: 700;
+	  font-size: 36px;
+	  line-height: 1.3;
+	  letter-spacing: -0.01em;
+    }
       footer {
         display: flex;
         justify-content: center;
