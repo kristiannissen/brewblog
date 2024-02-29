@@ -7,6 +7,8 @@ Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 
 Para 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 
+![Alt data](https://placehold.co/600x400)
+
 Para 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 
 ## H3 Lorem ipsum
