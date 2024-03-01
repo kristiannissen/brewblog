@@ -80,6 +80,8 @@
 		}
 		.header_logo a {
 			text-decoration: none;
+			font-family: var(--ff-header);
+			font-size: var(--fs-lg);
 		}
 		.container__content {
 			
@@ -87,6 +89,7 @@
 		.container__article {
 			max-width: 50rem;
 			margin: 0 auto;
+			display: flex;
 		}
 		.container__aside {
 			background: rgb(188, 163, 127);
@@ -103,7 +106,9 @@
 			background: rgb(17, 57, 70);
 			min-height: var(--space-4);
 		}
-		.column {}
+		.column {
+			display: block;
+		}
 		.content__header {}
 		.content__navigation {
 			
@@ -145,7 +150,14 @@
 		/* Breakpoint Desktop */
 		@media only screen and (min-width: 40em) {
 		  body {
-			
+			.font_para + .content_media {
+				max-width: 50%;
+				float: left;
+				margin: 0 1rem;
+			}
+				.font_para + .content_media.mt-2 {
+				margin-top: 0;
+			}
 		  }
 		}
 		/* Reset */
@@ -173,7 +185,7 @@
 			margin-bottom: 2em;
 			font-family: var(--ff-para);
 		}
-		.font_para:has(+ .font_para) {
+		[data-page="post"] .font_para:has(+ .font_para) {
 			padding: var(--space-2);
 			background: rgb(234, 215, 187);
 			border-radius: var(--rounded-md);
@@ -184,7 +196,7 @@
 			margin-bottom: var(--space-4);
 		}
 		.font_para:first-child {
-			color: red;
+			
 		}
 		</style>
 	</head>
@@ -193,12 +205,13 @@
 			<h1 class="font_heading"><a href="/">Hansen <span class="font_amp">&</span> Nissen</a></h1>
 		</header>
 		<main class="container__content">
-			<article class="container__article">
 				<amp-render src="/articles.json?RANDOM" layout="responsive" height="0" width="320" id="amp-render">
 				<template type="amp-mustache">
 					{{#articles}}
-						<article class="container__article">
-							<h1 class="font_header mb-2">{{title}}</h1>
+						<article class="container__article column">
+							<div class="content__header  pl-1 pr-1">
+								<h1 class="font_header mb-2">{{title}}</h1>
+							</div>
 							{{#paragraphs.0}}
 								<p class="font_para pl-1 pr-1">{{paragraph}} <a href="/post/#{{slug}}" class="">Læs mere</a></p>
 								{{#image}}
@@ -212,13 +225,11 @@
 					{{/articles}}
 				</template>
 			</amp-render>
-			</article>
 		</main>
 		<footer class="container__footer">
 			<div class="column">1</div>
 			<div class="column">2</div>
 		</footer>
-
 		<script>
 		
 		</script>

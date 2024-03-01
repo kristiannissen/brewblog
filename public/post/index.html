@@ -80,6 +80,8 @@
 		}
 		.header_logo a {
 			text-decoration: none;
+			font-family: var(--ff-header);
+			font-size: var(--fs-lg);
 		}
 		.container__content {
 			
@@ -102,6 +104,11 @@
 			display: grid;
 			background: rgb(17, 57, 70);
 			min-height: var(--space-4);
+		}
+		.container__footer .column {
+			color: rgb(255, 242, 216);
+			padding: var(--space-1);
+			font-family: var(--ff-para);
 		}
 		.column {}
 		.content__header {}
@@ -183,6 +190,9 @@
 		.font_para:first-child {
 			color: red;
 		}
+		.container__aside .font_header__sub {
+			font-family: var(--ff-para);
+		}
 		</style>
 	</head>
 	<body data-page="post">
@@ -223,7 +233,7 @@
 						<nav class="">
 							<ul class="breadcrumb__list>
 							{{#articles}}
-								<li class="breadcrumb__list_item"><a href="/post/{{slug}}" class="">{{title}}</a></li>
+								<li class="breadcrumb__list_item"><a href="/post/#{{slug}}">{{title}}</a></li>
 							{{/articles}}
 							</ul>
 						</nav>
@@ -233,7 +243,9 @@
 			</article>
 		</main>
 		<footer class="container__footer">
-			<div class="column">1</div>
+			<div class="column">
+				<b>Stærke øl til svage mænd!</b>
+			</div>
 			<div class="column">2</div>
 		</footer>
 
