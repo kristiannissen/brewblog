@@ -1,3 +1,8 @@
+---
+tags: Hello Kitty
+published: 2024-02-29
+---
+
 # H1 Lorem ipsum dolor sit amet
 
 Para 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.

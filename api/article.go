@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,6 +9,12 @@ import (
 	"path/filepath"
 	"strings"
 )
+
+type Entry struct {
+	Title string `json:"title"`
+	Intro string `json:"intro"`
+	Slug  string `json:"slug"`
+}
 
 func GetArticle(slug string) (string, error) {
 	var err error
@@ -21,9 +28,9 @@ func GetArticle(slug string) (string, error) {
 		log.Println(err)
 		return "", err
 	}
+
 	// Full path
-	p = filepath.Join(p + "/content/" + slug + ".md")
-	log.Println("File path " + p)
+	p = filepath.Join(p + "/../content/" + slug + ".md")
 	// Readfile
 	b, err = os.ReadFile(p)
 
@@ -33,9 +40,16 @@ func GetArticle(slug string) (string, error) {
 	}
 
 	// Convert data
-	s := string(b)
+	e, _ := json.Marshal(Transform(string(b)))
 
-	return s, nil
+	return string(e), nil
+}
+
+func Transform(s string) Entry {
+	// Create a new Entry
+	e := Entry{}
+
+	return e
 }
 
 func Article(w http.ResponseWriter, r *http.Request) {

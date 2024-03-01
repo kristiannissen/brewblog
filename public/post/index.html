@@ -21,156 +21,212 @@
 		<style amp-custom>
 		/* Custom stuff */
 		:root {
-			--body-font-size: 1rem;
-    	--body-line-height: 1.6;
-			--unit-05: 0.5rem;
-      --unit-1: 1rem;
-      --unit-2: 2rem;
-      --unit-3: 3rem;
-      --unit-4: 4rem;
-      --unit-5: 5rem;
-      --unit-6: 6rem;
-      --unit-8: 8rem;
-      --unit-10: 10rem;
-      --unit-12: 12rem;
-      --unit-16: 16rem;
-      --unit-20: 20rem;
-      --unit-24: 24rem;
-      --unit-30: 30rem;
-      --unit-36: 36rem;
-      --color-night: rgb(16, 15, 15);
-      --color-green: rgb(15, 61, 62);
-      --color-beige: rgb(226, 220, 200);
-      --color-white: rgb(241, 241, 241);
-      --font-family-heading: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
-      --font-family-copy: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
-	  --heading-letter-spacing: -0.02em;
-	  --heading-line-height: 1.15;
-	  --heading-font-size: 44px;
-	  --heading-font-weight: 800;
+			--fs-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
+			--fs-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+			--fs-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+			--fs-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+			--fs-xl: clamp(1.95rem, 1.56vw + 1.56rem, 2.81rem);
+			--fs-xxl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+			--fs-xxxl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
+			--space-1: 1rem;
+			--space-2: 2rem;
+			--space-3: 3rem;
+			--space-4: 4rem;
+			--ff-para: sans-serif;
+			--ff-header: serif;
+			--ff-header-sub: sans-serif;
+			--rounded-sm: 2px;
+			--rounded-md: 4px;
+			--rounded-lg: 8px;
+			--rounded-xl: 12px;
 		}
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--color-white);
-      font-family: var(--font-family-copy);
-      font-size: var(--body-font-size);
-      line-height: var(--body-line-height);
-    }
-    header {
-      background: var(--color-green);
-      display: flex;
-      justify-content: center;
-    }
-    header h1 {
-      font-family: var(--font-family-heading);
-      color: var(--color-white);
-    }
-    header h1 a {
-      text-decoration: none;
-      color: unset;
-    }
-    main {
-      padding: 0 var(--unit-05);
-    }
-    main article h1 {
-      font-family: var(--font-family-heading);
-      color: var(--color-green);
-      font-size: var(--heading-font-size);
-	  font-weight: var(--heading-font-weight);
-	  line-height: var(--heading-line-height);
-	  letter-spacing: var(--heading-letter-spacing);
-    }
-	main article h2 {
-      margin-top: 64px;
-	  margin-bottom: 1em;
-	  font-weight: 700;
-	  font-size: 36px;
-	  line-height: 1.3;
-	  letter-spacing: -0.01em;
-    }
-	main article p {
-		margin-bottom: 2em;
-		font-size: 18px;
-		line-height: 1.7;
-		margin-top: 0;
-    }
-	main article p:last-child {
-		margin-bottom: 0;
-	}
-    footer {
-      background: var(--color-night);
-      color: var(--color-beige);
-      height: var(--unit-8);
-      margin-top: auto;
-      display: grid;
-    }
-    .column {
-      padding: 0 var(--unit-1);
-    }
-    /* Type utils */
-    .amp {
-      font-weight: 400;
-      font-size: var(--unit-3);
-    }
-    /* Breakpoints */
-    @media only screen and (min-width: 40em) {
-      body {
-        
-      }
-      main {
-        min-width: 37.5rem;
-        margin: 0 auto;
-      }
-	  main article h1 {
-		font-family: var(--font-family-heading);
-		color: var(--color-green);
-		font-size: 56px;
-		font-weight: 800;
-		line-height: 1.1;
-		letter-spacing: -0.02;
-    }
-	main article h2 {
-	  margin-bottom: 1em;
-	  font-weight: 700;
-	  font-size: 36px;
-	  line-height: 1.3;
-	  letter-spacing: -0.01em;
-    }
-      footer {
-        display: flex;
-        justify-content: center;
-      }
-    }
-    /* Generic */
-    a {
-      color: unset;
-      text-decoration: none;
-    }
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.mb-2 {
+			margin-bottom: var(--space-2);
+		}
+		.mt-2 {
+			margin-top: var(--space-2);
+		}
+		.pl-1 {
+			padding-left: var(--space-1);
+		}
+		.pr-1 {
+			padding-right: var(--space-1);
+		}
+		.p-2 {
+			padding-left: var(--space-2);
+		}
+		.rounded-lg {
+			border-radius: var(--rounded-lg);
+		}
+		body {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			/* Base type */
+			font-size: var(--ff-base);
+			line-height: 1.5;
+			background: rgb(255, 242, 216);
+			color: rgb(17, 57, 70);
+		}
+		/* Containers */
+		.container_header {
+			display: flex;
+			justify-content: center;
+			margin-bottom: var(--space-1);
+		}
+		.header_logo a {
+			text-decoration: none;
+		}
+		.container__content {
+			
+		}
+		.container__article {
+			max-width: 50rem;
+			margin: 0 auto;
+		}
+		.container__aside {
+			background: rgb(234, 215, 187);
+		}
+		.container__footer {
+			height: var(--unit-8);
+			margin-top: auto;
+			display: grid;
+			background: rgb(188, 163, 127);
+		}
+		.column {}
+		.content__header {}
+		.content__navigation {
+			
+		}
+		.content_media {
+			width: auto;
+			max-width: none;
+		}
+		.navigation__breadcrumb {
+			margin-bottom: var(--space-1);
+		}
+		.breadcrumb__list {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+		.breadcrumb__list_item {
+			list-style: none;
+			font-family: sans-serif;
+			font-size: var(--fs-sm);
+		}
+		.breadcrumb__list_item:after {
+			content: "/";
+			margin: 0 4px;
+		}
+		.breadcrumb__list_item:last-child:after {
+			content: "";
+		}
+
+		/* Type utils */
+		.amp {
+		  font-weight: 400;
+		  font-size: ;
+		}
+
+		/* Breakpoint Desktop */
+		@media only screen and (min-width: 40em) {
+		  body {
+			
+		  }
+		}
+		/* Reset */
+		a {
+		  color: unset;
+		}
+		/* Fluid type */
+		.font_header {
+			font-size: var(--fs-xl);
+			font-weight: 800;
+			line-height: 1.15;
+			letter-spacing: -0.02em;
+		}
+		.font_header__sub {
+			line-height: 1.3;
+			letter-spacing: -0.01em;
+			font-weight: 700;
+			margin-top: 64px;
+			margin-bottom: 2em;
+			font-size: var(--fs-lg);
+		}
+		.font_para {
+			font-size: var(--fs-md);
+			line-height: 1.7;
+			margin-bottom: 2em;
+			font-family: var(--ff-para);
+		}
+		.font_para:has(+ .font_para) {
+			padding: var(--space-2);
+			background: rgb(234, 215, 187);
+			border-radius: var(--rounded-md);
+			margin-left: var(--space-2);
+			margin-right: var(--space-2);
+		}
+		.font_para:last-child {
+			margin-bottom: var(--space-4);
+		}
+		.font_para:first-child {
+			color: red;
+		}
 		</style>
 	</head>
 	<body>
-		<header>
-			<h1><a href="/">Hansen <span class="amp">&</span> Nissen</a></h1>
+		<header class="container_header header_logo">
+			<h1 class="font_heading"><a href="/">Hansen <span class="font_amp">&</span> Nissen</a></h1>
 		</header>
-		<main>
-			<article>
+		<main class="container__content">
+			<article class="container__article column">
 				<amp-render src="/post/article.json" layout="responsive" height="0" width="320" id="amp-render">
 				<template type="amp-mustache">
-					<h1>{{title}}</h1>
+					<div class="content__header content__navigation pl-1 pr-1">
+						<nav class="navigation__breadcrumb">
+							<ul class="breadcrumb__list">
+								<li class="breadcrumb__list_item"><a href="/">Hjem</a></li>
+								<li class="breadcrumb__list_item">Blog Post</li>
+							</ul>
+						</nav>
+						<h1 class="font_header mb-2">{{title}}</h1>
+					</div>
 					{{#paragraphs}}
-					{{#image}}
-						<amp-img src="{{image}}" width="600" height="400" layout="responsive"></amp-img>
-					{{/image}}
-					<h2>{{header}}</h2>
-					<p>{{paragraph}}</p>
+						{{#header}}
+							<h2 class="font_header__sub pl-1 pr-1">{{header}}</h2>
+						{{/header}}
+						<p class="font_para pl-1 pr-1">{{paragraph}}</p>
+						{{#image}}
+							<figure class="content_media mb-2 mt-2">
+								<amp-img src="{{image}}" width="800" height="600" layout="intrinsic">
+								</amp-img>
+							</figure>
+						{{/image}}
 					{{/paragraphs}}
+				</template>
+			</amp-render>
+			<amp-render src="/articles.json?RANDOM" layout="responsive" height="0" width="320" id="amp-render-related">
+				<template type="amp-mustache">
+					<aside class="container__aside rounded-lg mb-2 p-2">
+						<h2 class="font_header__sub">Relaterede artikler</h2>
+						<nav class="">
+							<ul class="breadcrumb__list>
+							{{#articles}}
+								<li class="breadcrumb__list_item"><a href="/post/{{slug}}" class="">{{title}}</a></li>
+							{{/articles}}
+							</ul>
+						</nav>
+					</aside>
 				</template>
 			</amp-render>
 			</article>
 		</main>
-		<footer>
+		<footer class="container__footer">
 			<div class="column">1</div>
 			<div class="column">2</div>
 		</footer>
