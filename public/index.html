@@ -137,9 +137,6 @@
 		.breadcrumb__list_item:last-child:after {
 			content: "";
 		}
-		[data-page="index"] .container__article .font_para {
-			
-		}
 
 		/* Type utils */
 		.amp {
@@ -157,6 +154,11 @@
 			}
 				.font_para + .content_media.mt-2 {
 				margin-top: 0;
+			}
+			.container__content .container__article:nth-child(-n + 1) .font_para {
+				columns: 2;
+				column-gap: var(--space-1);
+				
 			}
 		  }
 		}
