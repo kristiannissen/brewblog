@@ -1,6 +1,8 @@
 ---
-tags: Hello Kitty
+tags: Hello Kitty, Hello Pussy
 published: 2024-02-29
+excerpt_separator: <!--more-->
+title: Lorem ipsum dolor sit amet
 ---
 
 # H1 Lorem ipsum dolor sit amet
