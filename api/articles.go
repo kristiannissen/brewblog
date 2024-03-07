@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"_internal/entry"
+	"api/_internal/entry"
 	"fmt"
 	"log"
 	"net/http"
