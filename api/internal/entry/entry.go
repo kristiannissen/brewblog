@@ -5,7 +5,6 @@
 package entry
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"regexp"
@@ -193,10 +192,4 @@ func ParseEntryData(s string) (Entry, error) {
 	}
 
 	return e, nil
-}
-
-func EntryToJson(e Entry) (string, error) {
-	s, err := json.Marshal(e)
-
-	return string(s), err
 }
