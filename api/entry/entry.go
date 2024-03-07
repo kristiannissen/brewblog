@@ -45,7 +45,7 @@ type Entry struct {
 	URL        string      `json:"url"`
 }
 
-func Hello(w http.ResponseWriter, r *htt.Request) {
+func Hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello")
 }
 

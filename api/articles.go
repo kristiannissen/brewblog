@@ -1,7 +1,7 @@
 package api
 
 import (
-	"brewblog/api/internal/entry"
+	"brewblog/api/entry"
 	"fmt"
 	"log"
 	"net/http"
