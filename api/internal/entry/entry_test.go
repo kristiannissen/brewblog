@@ -16,8 +16,16 @@ func TestMain(m *testing.M) {
 	os.Exit(c)
 }
 
+func TestGetEntries(t *testing.T) {
+	_, err := GetEntries()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestGetEntry(t *testing.T) {
-	_, err := GetEntry("sample")
+	_, err := GetEntry("https://pyj4ulx4cmwnqsvz.public.blob.vercel-storage.com/sample.md")
 
 	if err != nil {
 		t.Fatal(err)

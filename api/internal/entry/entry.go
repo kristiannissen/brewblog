@@ -7,8 +7,11 @@ package entry
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
+
+	"github.com/rpdg/vercel_blob"
 )
 
 const (
@@ -39,12 +42,53 @@ type Entry struct {
 	Title      string      `json:"title"`
 	Meta       []KeyValue  `json:"meta"`
 	Paragraphs []Paragraph `json:"paragraphs"`
+	URL        string      `json:"url"`
 }
 
-func GetEntry(n string) (Entry, error) {
-	e := Entry{Title: "Hello Kitty"}
+func GetEntry(path string) (Entry, error) {
+	e := Entry{}
+	e.URL = path
+	var b []byte
+	var err error
+
+	// Download entry
+	c := vercel_blob.NewVercelBlobClient()
+	b, err = c.Download(path, vercel_blob.DownloadCommandOptions{})
+	if err != nil {
+		log.Println(err)
+		return e, err
+	}
+
+	e, err = ParseEntryData(string(b))
+
+	if err != nil {
+		log.Println(err)
+		return e, err
+	}
 
 	return e, nil
+}
+
+func GetEntries() ([]Entry, error) {
+	l := []Entry{}
+	// Create client and request files
+	c := vercel_blob.NewVercelBlobClient()
+	f, err := c.List(vercel_blob.ListCommandOptions{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, b := range f.Blobs {
+		e, r := GetEntry(b.URL)
+		if r != nil {
+			panic(r)
+		}
+		log.Println(e)
+		l = append(l, e)
+	}
+
+	return l, nil
 }
 
 func extractMeta(s string) []KeyValue {
@@ -139,6 +183,7 @@ func ParseEntryData(s string) (Entry, error) {
 			if a.Match([]byte(part)) {
 				part = extractAnchor(part)
 			}
+
 			para.Body = part
 		}
 		// Add to array
