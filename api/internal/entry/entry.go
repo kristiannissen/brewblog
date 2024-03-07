@@ -7,6 +7,7 @@ package entry
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"regexp"
 	"strings"
 
@@ -42,6 +43,10 @@ type Entry struct {
 	Meta       []KeyValue  `json:"meta"`
 	Paragraphs []Paragraph `json:"paragraphs"`
 	URL        string      `json:"url"`
+}
+
+func Hello(w http.ResponseWriter, r *htt.Request) {
+	fmt.Fprintf(w, "Hello")
 }
 
 func GetEntry(path string) (Entry, error) {
