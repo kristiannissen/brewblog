@@ -1,26 +1,18 @@
 package api
 
 import (
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
 func TestArticle(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/articles", nil)
+	w := httptest.NewRecorder()
+	// Test article handler
+	Article(w, req)
+	res := w.Result()
+	defer res.Body.Close()
 
-	req, err := http.NewRequest("GET", "/article", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	rr := httptest.NewRecorder()
-	h := http.HandlerFunc(Article)
-	h.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusOK {
-		t.Fatal("Error", status)
-	}
-
-	log.Println("Here", rr.Body.String())
+	t.Fatal("Not hotdog")
 }
