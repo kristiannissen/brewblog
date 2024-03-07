@@ -1,7 +1,8 @@
 package post
 
 import (
-	"log"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,7 +17,11 @@ func TestPost(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	log.Println(res)
+	data, _ := ioutil.ReadAll(res.Body)
+	e := Entry{}
+	_ = json.Unmarshal(data, &e)
 
-	t.Fatal("oh no")
+	if e.Title != "Kitty" {
+		t.Fatalf("Error: want Kitty got %s", e.Title)
+	}
 }

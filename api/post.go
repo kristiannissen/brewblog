@@ -1,6 +1,7 @@
 package post
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -8,5 +9,9 @@ import (
 func Post(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-type", "application/json")
-	fmt.Fprintf(w, "Hello Kitty")
+
+	e := Entry{Title: "Kitty"}
+	b, _ := json.Marshal(e)
+
+	fmt.Fprintf(w, string(b))
 }
