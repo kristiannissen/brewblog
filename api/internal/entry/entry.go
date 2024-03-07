@@ -6,6 +6,7 @@ package entry
 
 import (
 	"encoding/json"
+	"fmt"
 	"regexp"
 	"strings"
 )
@@ -80,6 +81,13 @@ func extractImage(s string) Image {
 	return img
 }
 
+func extractAnchor(s string) string {
+	r := regexp.MustCompile(`\[(.*)?\]\((.*)?\)`)
+
+	return strings.TrimSpace(fmt.Sprintf(
+		"%s", r.ReplaceAll([]byte(s), []byte("<a href='$2'>$1</a>"))))
+}
+
 func ParseEntryData(s string) (Entry, error) {
 	e := Entry{}
 	var f, l int
@@ -126,6 +134,11 @@ func ParseEntryData(s string) (Entry, error) {
 			}
 		} else {
 			// Good old text
+			// Extract a
+			a := regexp.MustCompile(`\[(.*)?\]\((.*)?\)`)
+			if a.Match([]byte(part)) {
+				part = extractAnchor(part)
+			}
 			para.Body = part
 		}
 		// Add to array
