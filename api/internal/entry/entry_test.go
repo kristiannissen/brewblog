@@ -61,10 +61,4 @@ func TestParseEntryData(t *testing.T) {
 	if len(e.Paragraphs) == 0 {
 		t.Fatal("No paragraphs")
 	}
-
-	// Images
-	// log.Println("Images", e.Images)
-	if len(e.Images) == 0 {
-		t.Fatal("No images")
-	}
 }

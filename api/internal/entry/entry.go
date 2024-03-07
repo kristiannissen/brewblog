@@ -11,7 +11,11 @@ import (
 )
 
 const (
-	SEP = "---"
+	SEP    = "---"
+	IMG    = "!"
+	HEADER = "#"
+	LB     = "\n"
+	DLB    = "\n\n"
 )
 
 type KeyValue struct {
@@ -20,8 +24,9 @@ type KeyValue struct {
 }
 
 type Paragraph struct {
-	Header string `json:"header"`
-	Body   string `json:"body"`
+	Header string  `json:"header"`
+	Body   string  `json:"body"`
+	Images []Image `json:"images"`
 }
 
 type Image struct {
@@ -33,7 +38,6 @@ type Entry struct {
 	Title      string      `json:"title"`
 	Meta       []KeyValue  `json:"meta"`
 	Paragraphs []Paragraph `json:"paragraphs"`
-	Images     []Image     `json:"images"`
 }
 
 func GetEntry(n string) (Entry, error) {
@@ -42,7 +46,7 @@ func GetEntry(n string) (Entry, error) {
 	return e, nil
 }
 
-func createMeta(s string) []KeyValue {
+func extractMeta(s string) []KeyValue {
 	var data []KeyValue
 
 	// Split string
@@ -64,7 +68,7 @@ func createMeta(s string) []KeyValue {
 
 func extractHeader(s string) string {
 	return strings.TrimSpace(
-		s[strings.LastIndex(s, "#")+1:])
+		s[strings.LastIndex(s, HEADER)+1:])
 }
 
 func extractImage(s string) Image {
@@ -87,7 +91,7 @@ func ParseEntryData(s string) (Entry, error) {
 		f = strings.Index(s, SEP) + len(SEP)
 		l = strings.Index(s[f:], SEP) + len(SEP)
 		// Append to Entry
-		e.Meta = createMeta(s[f:l])
+		e.Meta = extractMeta(s[f:l])
 		// Adjust string
 		f = l + len(SEP)
 		s = s[f:]
@@ -98,7 +102,6 @@ func ParseEntryData(s string) (Entry, error) {
 	loc := re.FindIndex([]byte(s))
 
 	if len(loc) > 0 {
-		// e.Title = strings.TrimSpace(strings.Trim(s[loc[0]:loc[1]], "#"))
 		e.Title = extractHeader(s[loc[0]:loc[1]])
 		// Adjust f
 		f = loc[1]
@@ -108,18 +111,18 @@ func ParseEntryData(s string) (Entry, error) {
 
 	// Split into parts
 	var parts []string
-	parts = strings.Split(s, "\n\n")
+	parts = strings.Split(s, DLB)
 	for _, part := range parts {
 		// Create a new paragraph
 		para := Paragraph{}
 		// Extract title (H2, h3)
-		if strings.HasPrefix(part, "#") {
+		if strings.HasPrefix(part, HEADER) {
 			// Headline
 			para.Header = extractHeader(part)
-		} else if strings.HasPrefix(part, "!") {
+		} else if strings.HasPrefix(part, IMG) {
 			// Images
-			for _, img := range strings.Split(part, "\n") {
-				e.Images = append(e.Images, extractImage(img))
+			for _, img := range strings.Split(part, LB) {
+				para.Images = append(para.Images, extractImage(img))
 			}
 		} else {
 			// Good old text
