@@ -21,13 +21,13 @@ func TestPost(t *testing.T) {
 	e := Entry{}
 	_ = json.Unmarshal(data, &e)
 
-	if e.Title != "Kitty" {
+	if e.Title != "Hello" {
 		t.Fatalf("Error: want Kitty got %s", e.Title)
 	}
 }
 
 func TestPosts(t *testing.T) {
-	req := httptest.NewRequest(http.MethodGet, "/post", nil)
+	req := httptest.NewRequest(http.MethodGet, "/posts", nil)
 	w := httptest.NewRecorder()
 
 	Posts(w, req)

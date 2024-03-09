@@ -3,10 +3,9 @@ package post
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
-	u "brewblog/user"
+	p "brewblog/_pkg"
 )
 
 type Entry struct {
@@ -17,11 +16,8 @@ func Post(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-type", "application/json")
 
-	e := Entry{Title: "Kitty"}
+	e := Entry{Title: p.Hello()}
 	b, _ := json.Marshal(e)
-
-	user := u.UserObj{}
-	log.Println(user)
 
 	fmt.Fprintf(w, string(b))
 }
