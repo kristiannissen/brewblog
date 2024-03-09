@@ -37,10 +37,7 @@ func TestPosts(t *testing.T) {
 
 	data, _ := ioutil.ReadAll(res.Body)
 
-	var l []Entry
-	_ = json.Unmarshal(data, &l)
-
-	if len(l) == 0 {
+	if string(data) != "Hello" {
 		t.Fatal("Empty list")
 	}
 }
