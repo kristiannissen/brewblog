@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"log"
 	"testing"
 )
 
@@ -35,9 +34,10 @@ func TestParseMeta(t *testing.T) {
 
 func TestRenderMarkdown(t *testing.T) {
 	r, _ := RenderMarkdown([]byte(d))
-	log.Println(string(r))
 
-	t.Fatal("Oh no Yoko")
+	if len(r) == 0 {
+		t.Fatal("Markdonw is empty")
+	}
 }
 
 func TestRenderHTML(t *testing.T) {

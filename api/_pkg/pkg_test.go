@@ -32,3 +32,27 @@ func TestVercelBlobList(t *testing.T) {
 		t.Fatal("No blobs")
 	}
 }
+
+func TestFind(t *testing.T) {
+	var p = "sample.md"
+
+	vb := VercelBlob{}
+	p, err := vb.Find(p)
+
+	if err != nil {
+		t.Error("No blob found")
+	}
+
+	if p == "" {
+		t.Error("No path found")
+	}
+
+}
+
+// Mimics handler logic
+func TestServiceBroker(t *testing.T) {
+	b := ServiceBroker{}
+	b.New(VercelBlob{})
+
+	t.Error("Yoko Oh No", b)
+}

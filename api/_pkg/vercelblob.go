@@ -9,12 +9,25 @@ import (
 /*
  * Implements interface from storage
  */
-type VercelBlob struct{}
+type VercelBlob struct {
+	// TODO: Add client
+}
+
+func (b VercelBlob) Find(pathname string) (string, error) {
+	l, _ := b.List()
+	for _, k := range l {
+		if k.PathName == pathname {
+			return k.URL, nil
+		}
+	}
+
+	return "", nil
+}
 
 /*
  * Downloads bytes
  */
-func (b *VercelBlob) Get(url string) ([]byte, error) {
+func (b VercelBlob) Get(url string) ([]byte, error) {
 	// Initialise client
 	client := v.NewVercelBlobClient()
 	// Try to download bytes
@@ -28,7 +41,7 @@ func (b *VercelBlob) Get(url string) ([]byte, error) {
 	return bytes, nil
 }
 
-func (b *VercelBlob) List() ([]Blob, error) {
+func (b VercelBlob) List() ([]Blob, error) {
 	// Initialize client
 	client := v.NewVercelBlobClient()
 	files, err := client.List(v.ListCommandOptions{})

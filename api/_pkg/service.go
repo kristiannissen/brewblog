@@ -12,6 +12,16 @@ import (
 type BlobService interface {
 	Get(url string) ([]byte, error)
 	List() ([]Blob, error)
+	// FIXME: Change to string, bool
+	Find(pathname string) (string, error)
+}
+
+type ServiceBroker struct {
+	service BlobService
+}
+
+func (s *ServiceBroker) New(b BlobService) {
+	s.service = b
 }
 
 /*
