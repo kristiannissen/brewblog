@@ -1,2 +1,4 @@
+github.com/gomarkdown/markdown v0.0.0-20231222211730-1d6d20845b47 h1:k4Tw0nt6lwro3Uin8eqoET7MDA4JnT8YgbCjc/g5E3k=
+github.com/gomarkdown/markdown v0.0.0-20231222211730-1d6d20845b47/go.mod h1:JDGcbDT52eL4fju3sZ4TeHGsQwhG9nbDV21aMyhwPoA=
 github.com/rpdg/vercel_blob v0.1.0 h1:Z3kHKGfiS0KME/PaBaMpbYn6wHqhjCbChU4d5TZgr9Y=
 github.com/rpdg/vercel_blob v0.1.0/go.mod h1:AIk4UwXA2Md53PrckG4WvIt7EhS4BMJIEgIqrK+fQXs=
