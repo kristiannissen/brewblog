@@ -1,36 +1,33 @@
-package post
+package api
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-func TestPost(t *testing.T) {
-	req := httptest.NewRequest(http.MethodGet, "/post", nil)
+func TestPage(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/page", nil)
 	w := httptest.NewRecorder()
 
-	Post(w, req)
+	Page(w, req)
 
 	res := w.Result()
 	defer res.Body.Close()
 
 	data, _ := ioutil.ReadAll(res.Body)
-	e := Entry{}
-	_ = json.Unmarshal(data, &e)
 
-	if e.Title != "Hello" {
-		t.Fatalf("Error: want Kitty got %s", e.Title)
+	if string(data) != "Hello" {
+		t.Fatal("Not Hello")
 	}
 }
 
-func TestPosts(t *testing.T) {
-	req := httptest.NewRequest(http.MethodGet, "/posts", nil)
+func TestPagess(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/pages", nil)
 	w := httptest.NewRecorder()
 
-	Posts(w, req)
+	Pages(w, req)
 
 	res := w.Result()
 	defer res.Body.Close()
