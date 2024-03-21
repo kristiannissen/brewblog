@@ -3,6 +3,7 @@ package pkg
 import (
 	"testing"
 
+	parser "brewblog/_pkg/parser"
 	s "brewblog/_pkg/service"
 )
 
@@ -54,5 +55,25 @@ func TestServiceDownload(t *testing.T) {
 
 	if len(bytes) == 0 {
 		t.Error("Nothing to download")
+	}
+}
+
+var d = `---
+tags: Hello Kitty
+published: 2024-02-29
+URL: /hello-kitty
+---
+
+# H1 Lorem ipsum dolor sit amet
+
+Para 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
+`
+
+func TestParseMeta(t *testing.T) {
+	h := parser.ParseMeta([]byte(d))
+
+	if h["tags"] != "Hello Kitty" {
+		t.Error("Parser is not working")
 	}
 }
