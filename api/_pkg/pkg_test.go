@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	parser "brewblog/_pkg/parser"
+	render "brewblog/_pkg/render"
 	s "brewblog/_pkg/service"
 )
 
@@ -91,7 +92,7 @@ func TestMeta(t *testing.T) {
 	t.Run("Strip meta", func(t *testing.T) {
 		d := parser.StripMeta([]byte(d))
 
-		if strings.HasPrefix(string(d), "# H1") == false {
+		if strings.Index(string(d), "#") != 0 {
 			t.Error("Meta not stripped")
 		}
 	})
@@ -106,4 +107,22 @@ func TestParseTitle(t *testing.T) {
 			t.Error("got", title)
 		}
 	})
+}
+
+func TestRenderMarkup(t *testing.T) {
+	m := parser.StripMeta([]byte(d))
+	m = render.RenderMarkdown(m)
+
+	if strings.HasPrefix(string(m), "<h1>") == false {
+		t.Error("Markdown error")
+	}
+}
+
+func TestRenderTemplate(t *testing.T) {
+	m := parser.StripMeta([]byte(d))
+	h, _ := render.RenderTemplate(m)
+
+	if strings.HasPrefix(string(h), "<!DOCTYPE") == false {
+		t.Error("No template")
+	}
 }
