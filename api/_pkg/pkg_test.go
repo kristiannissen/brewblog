@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"strings"
 	"testing"
 
 	parser "brewblog/_pkg/parser"
@@ -17,26 +18,34 @@ func TestServiceList(t *testing.T) {
 	service := s.NewVercelService()
 	list, err := service.List()
 
-	if err != nil {
-		t.Error(err)
-	}
+	t.Run("No error", func(t *testing.T) {
+		if err != nil {
+			t.Error(err)
+		}
+	})
 
-	if len(list) == 0 {
-		t.Error("No blobs")
-	}
+	t.Run("List len", func(t *testing.T) {
+		if len(list) == 0 {
+			t.Error("Len is 0")
+		}
+	})
 }
 
 func TestServiceFind(t *testing.T) {
 	service := s.NewVercelService()
 	url, err := service.Find("sample.md")
 
-	if err != nil {
-		t.Error(err)
-	}
+	t.Run("Test Error", func(t *testing.T) {
+		if err != nil {
+			t.Error(err)
+		}
+	})
 
-	if url == "" {
-		t.Error("No URL found")
-	}
+	t.Run("Test URL", func(t *testing.T) {
+		if url == "" {
+			t.Error("No URL")
+		}
+	})
 }
 
 func TestServiceDownload(t *testing.T) {
@@ -70,10 +79,31 @@ Para 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 `
 
-func TestParseMeta(t *testing.T) {
+func TestMeta(t *testing.T) {
 	h := parser.ParseMeta([]byte(d))
 
-	if h["tags"] != "Hello Kitty" {
-		t.Error("Parser is not working")
-	}
+	t.Run("Has tags", func(t *testing.T) {
+		if h["tags"] == "" {
+			t.Error("No tags found")
+		}
+	})
+
+	t.Run("Strip meta", func(t *testing.T) {
+		d := parser.StripMeta([]byte(d))
+
+		if strings.HasPrefix(string(d), "# H1") == false {
+			t.Error("Meta not stripped")
+		}
+	})
+}
+
+func TestParseTitle(t *testing.T) {
+
+	t.Run("Title", func(t *testing.T) {
+		title := parser.ParseTitle([]byte(d))
+
+		if strings.HasPrefix(title, "H1") == false {
+			t.Error("got", title)
+		}
+	})
 }

@@ -1,10 +1,23 @@
 package parser
 
-import "strings"
+import (
+	"strings"
+)
 
 const (
 	SEP = "---"
 )
+
+func StripMeta(b []byte) []byte {
+	s := string(b)
+
+	if strings.HasPrefix(s, SEP) {
+		// Meta found
+		s = s[strings.LastIndex(s, SEP)+len(SEP):]
+	}
+
+	return []byte(strings.TrimSpace(s))
+}
 
 func ParseMeta(b []byte) map[string]string {
 	// M will contain all meta key/value pairs
@@ -32,4 +45,21 @@ func ParseMeta(b []byte) map[string]string {
 	}
 
 	return m
+}
+
+func ParseTitle(b []byte) string {
+	var t, s string
+
+	s = string(b)
+
+	for _, line := range strings.Split(s, "\n") {
+		if strings.HasPrefix(line, "#") {
+			t = line
+			break
+		}
+	}
+	// Remove #
+	t = t[strings.Index(t, "#")+len("#"):]
+
+	return strings.TrimSpace(t)
 }
