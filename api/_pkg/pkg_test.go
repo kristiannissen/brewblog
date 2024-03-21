@@ -2,57 +2,57 @@ package pkg
 
 import (
 	"testing"
+
+	s "brewblog/_pkg/service"
 )
 
-func TestVercelBlobGet(t *testing.T) {
-	var url string
-	url = "https://pyj4ulx4cmwnqsvz.public.blob.vercel-storage.com/sample.md"
-	// Initialise blob
-	vb := VercelBlob{}
-	b, err := vb.Get(url)
+func TestServiceNew(t *testing.T) {
+	service := s.NewVercelService()
+
+	t.Error("Yoko Oh No", service)
+}
+
+func TestServiceList(t *testing.T) {
+	service := s.NewVercelService()
+	list, err := service.List()
 
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
-	if len(b) == 0 {
-		t.Error("B is 0")
+	if len(list) == 0 {
+		t.Error("No blobs")
 	}
 }
 
-func TestVercelBlobList(t *testing.T) {
-	vb := VercelBlob{}
-	l, err := vb.List()
+func TestServiceFind(t *testing.T) {
+	service := s.NewVercelService()
+	url, err := service.Find("sample.md")
 
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
-	if len(l) == 0 {
-		t.Fatal("No blobs")
+	if url == "" {
+		t.Error("No URL found")
 	}
 }
 
-func TestFind(t *testing.T) {
-	var p = "sample.md"
+func TestServiceDownload(t *testing.T) {
+	service := s.NewVercelService()
+	url, _ := service.Find("sample.md")
 
-	vb := VercelBlob{}
-	p, err := vb.Find(p)
+	if url == "" {
+		t.Error("No URL Found")
+	}
+
+	bytes, err := service.Download(url)
 
 	if err != nil {
-		t.Error("No blob found")
+		t.Error(err)
 	}
 
-	if p == "" {
-		t.Error("No path found")
+	if len(bytes) == 0 {
+		t.Error("Nothing to download")
 	}
-
-}
-
-// Mimics handler logic
-func TestServiceBroker(t *testing.T) {
-	b := ServiceBroker{}
-	b.New(VercelBlob{})
-
-	t.Error("Yoko Oh No", b)
 }

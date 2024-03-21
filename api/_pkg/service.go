@@ -17,10 +17,10 @@ type BlobService interface {
 }
 
 type ServiceBroker struct {
-	service BlobService
+	service *BlobService
 }
 
-func (s *ServiceBroker) New(b BlobService) {
+func (s *ServiceBroker) New(b *BlobService) {
 	s.service = b
 }
 
