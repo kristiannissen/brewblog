@@ -78,6 +78,14 @@ URL: /hello-kitty
 
 Para 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
+
+## H2 Lorem ippsum
+Para 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
+
+## H2 Lorem ippsum
+Para 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 `
 
 func TestMeta(t *testing.T) {
@@ -96,6 +104,18 @@ func TestMeta(t *testing.T) {
 			t.Error("Meta not stripped")
 		}
 	})
+}
+
+func TestParseJSON(t *testing.T) {
+	m, err := parser.ParseJSON([]byte(d))
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(m.Title) == 0 {
+		t.Error("No title")
+	}
 }
 
 func TestParseTitle(t *testing.T) {

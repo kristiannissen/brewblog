@@ -3,6 +3,8 @@ package service
 import (
 	"log"
 
+	"brewblog/_pkg/domain"
+
 	"github.com/rpdg/vercel_blob"
 )
 
@@ -44,18 +46,18 @@ func (v *VercelService) Find(pathname string) (string, error) {
 	return url, nil
 }
 
-func (v *VercelService) List() ([]Blob, error) {
+func (v *VercelService) List() ([]domain.Blob, error) {
 	files, err := v.client.List(vercel_blob.ListCommandOptions{})
 
 	if err != nil {
 		// Log error
 		log.Println(err)
-		return []Blob{}, err
+		return []domain.Blob{}, err
 	}
 
-	var blobs []Blob
+	var blobs []domain.Blob
 	for _, f := range files.Blobs {
-		blobs = append(blobs, Blob{
+		blobs = append(blobs, domain.Blob{
 			URL:        f.URL,
 			PathName:   f.PathName,
 			Size:       f.Size,

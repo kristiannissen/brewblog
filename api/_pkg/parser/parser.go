@@ -1,11 +1,17 @@
 package parser
 
 import (
+	"errors"
+	"log"
 	"strings"
+
+	"brewblog/_pkg/domain"
 )
 
 const (
 	SEP = "---"
+	LB  = "\n"
+	DLB = "\n\n"
 )
 
 func StripMeta(b []byte) []byte {
@@ -17,6 +23,48 @@ func StripMeta(b []byte) []byte {
 	}
 
 	return []byte(strings.TrimSpace(s))
+}
+
+// FIXME: Not happy about the naming...
+func ParseJSON(b []byte) (domain.Article, error) {
+	var article domain.Article
+	var meta map[string]string
+
+	// Parse meta
+	meta = ParseMeta(b)
+	article.Meta = meta
+	// Strip meta
+	b = StripMeta(b)
+	var s = string(b)
+
+	if strings.Index(s, "#") < 0 {
+		log.Println("No title")
+		return article, errors.New("No title in document")
+	}
+	// ParseHeader
+	article.Title = ParseTitle(b)
+	// Update s
+	s = s[strings.Index(s, article.Title)+len(article.Title):]
+	// Split s by DLB
+	for _, p := range strings.Split(s, DLB) {
+		if len(p) > 0 {
+			para := domain.Paragraph{}
+			// Check if there is a header
+			if strings.HasPrefix(s, "#") {
+				para.Header = s[:strings.Index(s, LB)]
+				log.Println(para.Header)
+			} else if strings.HasPrefix(s, "!") {
+				// Handle images
+			} else {
+				// Plain text
+				para.Body = strings.TrimSpace(p)
+			}
+			// Ensure no empty paras
+			article.Paragraphs = append(article.Paragraphs, para)
+		}
+	}
+
+	return article, nil
 }
 
 func ParseMeta(b []byte) map[string]string {
