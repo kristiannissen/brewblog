@@ -50,11 +50,10 @@ func ParseJSON(b []byte) (domain.Article, error) {
 		if len(p) > 0 {
 			para := domain.Paragraph{}
 			// Check if there is a header
-			if strings.HasPrefix(s, "#") {
-				para.Header = s[:strings.Index(s, LB)]
-				log.Println(para.Header)
-			} else if strings.HasPrefix(s, "!") {
-				// Handle images
+			if strings.HasPrefix(p, "#") {
+				para.Header = p[:strings.Index(s, LB)]
+			} else if strings.HasPrefix(p, "!") {
+				//
 			} else {
 				// Plain text
 				para.Body = strings.TrimSpace(p)

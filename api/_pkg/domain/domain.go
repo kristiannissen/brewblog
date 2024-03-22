@@ -12,8 +12,11 @@ type Blob struct {
 }
 
 type Image struct {
-	URL string
+	URL   string
+	Alt   string
+	Title string
 }
+
 type Paragraph struct {
 	Body   string
 	Header string
