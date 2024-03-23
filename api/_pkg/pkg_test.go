@@ -84,7 +84,7 @@ Para 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.
 
 ![1 The San Juan!](/1assets/san-juan-mountains.jpg "San Juan")
-![2 The San Juan!](/2assets/san-juan-mountains.jpg "San Juan")
+![2 The San Juan!](/2assets/san-juan-mountains.jpg)
 ![3 The San Juan!](/3assets/san-juan-mountains.jpg "San Juan")
 
 ## H2 Lorem ippsum
@@ -126,6 +126,7 @@ func TestParseJSON(t *testing.T) {
 	if len(m.Paragraphs) == 0 {
 		t.Error("Not all paragraphs found")
 	}
+
 }
 
 func TestParseTitle(t *testing.T) {

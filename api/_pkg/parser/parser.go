@@ -3,6 +3,7 @@ package parser
 import (
 	"errors"
 	"log"
+	"regexp"
 	"strings"
 
 	"brewblog/_pkg/domain"
@@ -47,16 +48,38 @@ func ParseJSON(b []byte) (domain.Article, error) {
 	s = s[strings.Index(s, article.Title)+len(article.Title):]
 	// Split s by DLB
 	for _, p := range strings.Split(s, DLB) {
-		if len(p) > 0 {
+		if strings.TrimSpace(p) != "" {
 			para := domain.Paragraph{}
 			// Check if there is a header
 			if strings.HasPrefix(p, "#") {
-				para.Header = p[:strings.Index(s, LB)]
+				para.Header = p[:strings.Index(p, LB)]
+				// log.Println("Header", para.Header)
 			} else if strings.HasPrefix(p, "!") {
-				//
+				// Check if image has alt and title
+				if m, err := regexp.MatchString(`^!\[(.*)?\]\((.*)?\s"(.*)"?\)`, p); err == nil {
+					var image domain.Image
+					// Find images
+					if m == true {
+						// Alt + title
+						pat := regexp.MustCompile(`^!\[(.*)?\]\((.*)?\s"(.*)?"\)`)
+						submatch := pat.FindStringSubmatch(p)
+						// Populate struct
+						image.Title = submatch[1]
+						image.URL = submatch[2]
+						image.Alt = submatch[3]
+					} else {
+						// Alt - title
+						pat := regexp.MustCompile(`^!\[(.*)?\]\((.*)?\)`)
+						submatch := pat.FindStringSubmatch(p)
+						image.Title = submatch[1]
+						image.URL = submatch[2]
+					}
+					para.Images = append(para.Images, image)
+				}
 			} else {
 				// Plain text
 				para.Body = strings.TrimSpace(p)
+				log.Println(para.Body)
 			}
 			// Ensure no empty paras
 			article.Paragraphs = append(article.Paragraphs, para)
