@@ -2,13 +2,14 @@ package api
 
 import (
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
 func TestPage(t *testing.T) {
-	req := httptest.NewRequest(http.MethodGet, "/page", nil)
+	req := httptest.NewRequest(http.MethodGet, "/page?name=sample", nil)
 	w := httptest.NewRecorder()
 
 	Page(w, req)
@@ -17,6 +18,7 @@ func TestPage(t *testing.T) {
 	defer res.Body.Close()
 
 	data, _ := ioutil.ReadAll(res.Body)
+	log.Println(string(data))
 
 	if string(data) != "Hello" {
 		t.Fatal("Not Hello")
