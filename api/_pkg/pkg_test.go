@@ -15,14 +15,14 @@ func TestPageService(t *testing.T) {
 	t.Run("404", func(t *testing.T) {
 		url, err := PageService("")
 		if err == nil {
-			t.Errorf("404 not working %s", url)
+			t.Errorf("404 not working URL %s", url)
 		}
 	})
 
 	t.Run("200", func(t *testing.T) {
 		url, err := PageService("sample")
 		if err != nil {
-			t.Errorf("200 not working %s", url)
+			t.Errorf("200 not working URL %s", url)
 		}
 	})
 }

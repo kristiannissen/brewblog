@@ -2,13 +2,12 @@ package api
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-func TestPage(t *testing.T) {
+func TestPage200(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/page?name=sample", nil)
 	w := httptest.NewRecorder()
 
@@ -17,11 +16,28 @@ func TestPage(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	data, _ := ioutil.ReadAll(res.Body)
-	log.Println(string(data))
+	// resp, _ := io.ReadAll(res.Body)
+	// log.Println(string(resp))
 
-	if string(data) != "Hello" {
-		t.Fatal("Not Hello")
+	if res.StatusCode != 200 {
+		t.Errorf("Wrong response %d", res.StatusCode)
+	}
+}
+
+func TestPage404(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/page?name=", nil)
+	w := httptest.NewRecorder()
+
+	Page(w, req)
+
+	res := w.Result()
+	defer res.Body.Close()
+
+	// resp, _ := io.ReadAll(res.Body)
+	// log.Println(string(resp), res.StatusCode)
+
+	if res.StatusCode != 404 {
+		t.Errorf("Wrong response %d", res.StatusCode)
 	}
 }
 
