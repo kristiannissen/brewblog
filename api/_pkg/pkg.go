@@ -90,7 +90,7 @@ func PagesService() ([]byte, error) {
 		}
 		m := p.ParseMeta(doc)
 		pages = append(pages,
-			Page{Title: m["title"], URL: v.URL},
+			Page{Title: m["title"], URL: "/api/page?name=" + v.PathName},
 		)
 	}
 
