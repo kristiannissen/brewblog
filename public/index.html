@@ -223,13 +223,13 @@
 						{{#header}}
 							<h2 class="font_header__sub pl-1 pr-1">{{header}}</h2>
 						{{/header}}
-						<p class="font_para pl-1 pr-1">{{paragraph}}</p>
-						{{#image}}
+						<p class="font_para pl-1 pr-1">{{body}}</p>
+						{{#images}}
 							<figure class="content_media mb-2 mt-2">
-								<amp-img src="{{image}}" width="800" height="600" layout="intrinsic">
+								<amp-img src="{{url}}" width="800" height="600" layout="intrinsic">
 								</amp-img>
 							</figure>
-						{{/image}}
+						{{/images}}
 					{{/Paragraphs}}
 				</template>
 			</amp-render>
