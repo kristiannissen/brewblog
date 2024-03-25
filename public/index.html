@@ -210,7 +210,27 @@
 			<!-- Ampt render for recent story //-->
 			<amp-render src="/api/recent.json?RANDOM" layout="fixed-height" height="300">
 				<template type="amp-mustache">
-				{{title}}
+				<div class="content__header content__navigation pl-1 pr-1">
+						<nav class="navigation__breadcrumb">
+							<ul class="breadcrumb__list">
+								<li class="breadcrumb__list_item"><a href="/">Hjem</a></li>
+								<li class="breadcrumb__list_item">Blog Post</li>
+							</ul>
+						</nav>
+						<h1 class="font_header mb-2">{{title}}</h1>
+					</div>
+					{{#Paragraphs}}
+						{{#header}}
+							<h2 class="font_header__sub pl-1 pr-1">{{header}}</h2>
+						{{/header}}
+						<p class="font_para pl-1 pr-1">{{paragraph}}</p>
+						{{#image}}
+							<figure class="content_media mb-2 mt-2">
+								<amp-img src="{{image}}" width="800" height="600" layout="intrinsic">
+								</amp-img>
+							</figure>
+						{{/image}}
+					{{/Paragraphs}}
 				</template>
 			</amp-render>
 		</main>
