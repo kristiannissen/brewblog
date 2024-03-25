@@ -36,7 +36,7 @@ func RenderTemplate(b []byte) ([]byte, error) {
 	if err != nil {
 		return []byte(buff.String()), err
 	}
-	err = t.Execute(&buff, string(b))
+	err = t.Execute(&buff, template.HTML(string(b)))
 	if err != nil {
 		return []byte(buff.String()), err
 	}

@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"log"
 
 	"brewblog/_pkg/domain"
@@ -43,8 +44,12 @@ func (v *VercelService) Find(pathname string) (string, error) {
 			break
 		}
 	}
+	// Error handling
+	if url == "" {
+		err = errors.New("URL not found")
+	}
 
-	return url, nil
+	return url, err
 }
 
 func (v *VercelService) List() ([]domain.Blob, error) {

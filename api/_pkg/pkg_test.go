@@ -10,6 +10,23 @@ import (
 	v "brewblog/_pkg/service/vercelservice"
 )
 
+func TestPageService(t *testing.T) {
+	// Mimics HTTP handlers
+	t.Run("404", func(t *testing.T) {
+		url, err := PageService("")
+		if err == nil {
+			t.Errorf("404 not working %s", url)
+		}
+	})
+
+	t.Run("200", func(t *testing.T) {
+		url, err := PageService("sample")
+		if err != nil {
+			t.Errorf("200 not working %s", url)
+		}
+	})
+}
+
 func TestServiceNew(t *testing.T) {
 	provider := s.ServiceProvider(&v.VercelService{})
 	t.Errorf("%T", provider)
