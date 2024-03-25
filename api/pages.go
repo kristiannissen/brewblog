@@ -13,6 +13,8 @@ type Article struct {
 func Pages(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-type", "application/json")
+	// Set CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	articles := []Article{
 		{Title: "Hello"},
