@@ -56,7 +56,15 @@ func ParseJSON(b []byte) (domain.Article, error) {
 
 				switch string(p[0]) {
 				case "!":
-					log.Println(parseImage(p))
+					// Split into lines
+					for _, l := range strings.Split(p, LB) {
+						img := parseImage(l)
+						// Populate paragraph images
+						para.Images = append(para.Images, domain.Image{
+							Title: img["title"],
+							URL:   img["url"],
+						})
+					}
 				case "#":
 					para.Header = parseHeader(p)
 				default:
@@ -74,23 +82,14 @@ func ParseJSON(b []byte) (domain.Article, error) {
 }
 
 func parseImage(s string) map[string]string {
-	images := map[string]string{}
-	// Split by LB
-	// ![The San Juan Mountains are beautiful!](/assets/images/san-juan-mountains.jpg)
-	for _, l := range strings.Split(s, LB) {
-		var f, e int
-		// Parse title
-		f = strings.Index(l, "[") + 1
-		e = strings.LastIndex(l, "]")
-		images["title"] = l[f:e]
-		// URL
-		f = strings.Index(l[e:], "(") + 1
+	image := map[string]string{}
+	// Match single line
+	r := regexp.MustCompile(`^!\[(.*?)\]\((.*?)\)`)
+	m := r.FindStringSubmatch(s)
+	image["title"] = m[1]
+	image["url"] = m[2]
 
-		images["url"] = l[f:]
-
-	}
-
-	return images
+	return image
 }
 
 func parseHeader(s string) string {
