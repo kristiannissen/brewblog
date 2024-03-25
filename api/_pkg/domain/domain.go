@@ -25,5 +25,5 @@ type Paragraph struct {
 type Article struct {
 	Title      string            `json:"title"`
 	Meta       map[string]string `json:"meta"`
-	Paragraphs []Paragraph       `json":paragraphs"`
+	Paragraphs []Paragraph       `json:"paragraphs"`
 }
