@@ -20,6 +20,8 @@ func Pages(w http.ResponseWriter, req *http.Request) {
 	}
 
 	b, _ := json.Marshal(articles)
+	var resp string
+	resp = `{"pages": ` + string(b) + `}`
 
-	fmt.Fprintf(w, string(b))
+	fmt.Fprintf(w, resp)
 }
