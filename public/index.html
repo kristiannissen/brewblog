@@ -208,13 +208,13 @@
 		</header>
 		<main class="container__content">
 			<!-- Ampt render for recent story //-->
-			<amp-render src="/recent.json?RANDOM" layout="fixed-height" height="300">
+			<amp-render src="/api/recent.json?RANDOM" layout="fixed-height" height="300">
 				<template type="amp-mustache">
 				{{title}}
 				</template>
 			</amp-render>
 		</main>
-		<amp-next-page src="https://brewblog-kohl.vercel.app/api/pages?RANDOM">
+		<amp-next-page src="/api/pages?RANDOM">
 			<footer>Footer</footer>
 		</amp-next-page>
 	</body>
