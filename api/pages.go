@@ -19,8 +19,8 @@ func Pages(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	articles := []Article{
-		{Title: "Hello", URL: "/post/", Image: "https://placehold.co/600x400"},
-		{Title: "Kitty", URL: "/post", Image: "https://placehold.co/600x400"},
+		{Title: "Hello", URL: "https://brewblog-kohl.vercel.app/api/page?name=sample.md", Image: "https://placehold.co/600x400"},
+		{Title: "Kitty", URL: "https://brewblog-kohl.vercel.app/api/page?name=sample.md", Image: "https://placehold.co/600x400"},
 	}
 
 	b, _ := json.Marshal(articles)

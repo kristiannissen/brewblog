@@ -20,7 +20,7 @@ func TestPageService(t *testing.T) {
 	})
 
 	t.Run("200", func(t *testing.T) {
-		url, err := PageService("sample")
+		url, err := PageService("sample.md")
 		if err != nil {
 			t.Errorf("200 not working URL %s", url)
 		}
