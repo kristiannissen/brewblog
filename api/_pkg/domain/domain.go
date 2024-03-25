@@ -2,7 +2,6 @@ package domain
 
 import "time"
 
-// TODO: Move to seperate folder
 type Blob struct {
 	URL         string
 	PathName    string
@@ -12,19 +11,19 @@ type Blob struct {
 }
 
 type Image struct {
-	URL   string
-	Alt   string
-	Title string
+	URL   string `json:"url"`
+	Alt   string `json:"alt"`
+	Title string `json":title"`
 }
 
 type Paragraph struct {
-	Body   string
-	Header string
-	Images []Image
+	Body   string  `json:"body"`
+	Header string  `json:"header"`
+	Images []Image `json:"images"`
 }
 
 type Article struct {
 	Title      string            `json:"title"`
 	Meta       map[string]string `json:"meta"`
-	Paragraphs []Paragraph
+	Paragraphs []Paragraph       `json":paragraphs"`
 }
