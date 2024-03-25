@@ -9,6 +9,7 @@ import (
 type Article struct {
 	Title string `json:"title"`
 	URL   string `json:"url"`
+	Image string `json:"image"`
 }
 
 func Pages(w http.ResponseWriter, req *http.Request) {
@@ -18,8 +19,8 @@ func Pages(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	articles := []Article{
-		{Title: "Hello", URL: "/api/page?name=sample.md"},
-		{Title: "Kitty", URL: "/api/page?name=sample.md"},
+		{Title: "Hello", URL: "/api/page?name=sample.md", Image: "https://placehold.co/600x400"},
+		{Title: "Kitty", URL: "/api/page?name=sample.md", Image: "https://placehold.co/600x400"},
 	}
 
 	b, _ := json.Marshal(articles)
