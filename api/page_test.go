@@ -23,7 +23,7 @@ func TestPage(t *testing.T) {
 	}
 }
 
-func TestPagess(t *testing.T) {
+func TestPages(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/pages", nil)
 	w := httptest.NewRecorder()
 
