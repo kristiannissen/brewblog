@@ -48,45 +48,53 @@ func ParseJSON(b []byte) (domain.Article, error) {
 	s = s[strings.Index(s, article.Title)+len(article.Title):]
 	// Split s by DLB
 	for _, p := range strings.Split(s, DLB) {
-		if strings.TrimSpace(p) != "" {
-			para := domain.Paragraph{}
-			// Check if there is a header
-			if strings.HasPrefix(p, "#") {
-				para.Header = p[:strings.Index(p, LB)]
-				// log.Println("Header", para.Header)
-			} else if strings.HasPrefix(p, "!") {
-				// Check if image has alt and title
-				if m, err := regexp.MatchString(`^!\[(.*)?\]\((.*)?\s"(.*)"?\)`, p); err == nil {
-					var image domain.Image
-					// Find images
-					if m == true {
-						// Alt + title
-						pat := regexp.MustCompile(`^!\[(.*)?\]\((.*)?\s"(.*)?"\)`)
-						submatch := pat.FindStringSubmatch(p)
-						// Populate struct
-						image.Title = submatch[1]
-						image.URL = submatch[2]
-						image.Alt = submatch[3]
-					} else {
-						// Alt - title
-						pat := regexp.MustCompile(`^!\[(.*)?\]\((.*)?\)`)
-						submatch := pat.FindStringSubmatch(p)
-						image.Title = submatch[1]
-						image.URL = submatch[2]
-					}
-					para.Images = append(para.Images, image)
+		// Skip empty lines
+		if m, err := regexp.MatchString(`^\S`, p); err == nil {
+			if m == true {
+				// No white space
+				var para domain.Paragraph
+
+				switch string(p[0]) {
+				case "!":
+					log.Println(parseImage(p))
+				case "#":
+					para.Header = parseHeader(p)
+				default:
+					para.Body = strings.TrimSpace(p)
 				}
-			} else {
-				// Plain text
-				para.Body = strings.TrimSpace(p)
-				log.Println(para.Body)
+				// Populate article paragraphs
+				article.Paragraphs = append(article.Paragraphs, para)
 			}
-			// Ensure no empty paras
-			article.Paragraphs = append(article.Paragraphs, para)
+		} else {
+			log.Println(err)
 		}
 	}
 
 	return article, nil
+}
+
+func parseImage(s string) map[string]string {
+	images := map[string]string{}
+	// Split by LB
+	// ![The San Juan Mountains are beautiful!](/assets/images/san-juan-mountains.jpg)
+	for _, l := range strings.Split(s, LB) {
+		var f, e int
+		// Parse title
+		f = strings.Index(l, "[") + 1
+		e = strings.LastIndex(l, "]")
+		images["title"] = l[f:e]
+		// URL
+		f = strings.Index(l[e:], "(") + 1
+
+		images["url"] = l[f:]
+
+	}
+
+	return images
+}
+
+func parseHeader(s string) string {
+	return s
 }
 
 func ParseMeta(b []byte) map[string]string {

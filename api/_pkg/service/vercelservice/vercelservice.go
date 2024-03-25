@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"brewblog/_pkg/domain"
+	s "brewblog/_pkg/service"
 
 	"github.com/rpdg/vercel_blob"
 )
@@ -12,7 +13,7 @@ type VercelService struct {
 	client *vercel_blob.VercelBlobClient
 }
 
-func NewVercelService() BlobService {
+func (v *VercelService) NewService() s.BlobService {
 	return &VercelService{
 		client: vercel_blob.NewVercelBlobClient(),
 	}

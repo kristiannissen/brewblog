@@ -4,19 +4,19 @@ import (
 	"strings"
 	"testing"
 
-	parser "brewblog/_pkg/parser"
-	render "brewblog/_pkg/render"
+	"brewblog/_pkg/parser"
+	"brewblog/_pkg/render"
 	s "brewblog/_pkg/service"
+	v "brewblog/_pkg/service/vercelservice"
 )
 
 func TestServiceNew(t *testing.T) {
-	service := s.NewVercelService()
-
-	t.Error("Yoko Oh No", service)
+	provider := s.ServiceProvider(&v.VercelService{})
+	t.Errorf("%T", provider)
 }
 
 func TestServiceList(t *testing.T) {
-	service := s.NewVercelService()
+	service := s.ServiceProvider(&v.VercelService{})
 	list, err := service.List()
 
 	t.Run("No error", func(t *testing.T) {
@@ -33,7 +33,7 @@ func TestServiceList(t *testing.T) {
 }
 
 func TestServiceFind(t *testing.T) {
-	service := s.NewVercelService()
+	service := s.ServiceProvider(&v.VercelService{})
 	url, err := service.Find("sample.md")
 
 	t.Run("Test Error", func(t *testing.T) {
@@ -50,7 +50,7 @@ func TestServiceFind(t *testing.T) {
 }
 
 func TestServiceDownload(t *testing.T) {
-	service := s.NewVercelService()
+	service := s.ServiceProvider(&v.VercelService{})
 	url, _ := service.Find("sample.md")
 
 	if url == "" {
