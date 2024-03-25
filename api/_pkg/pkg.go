@@ -19,7 +19,7 @@ func PageService(name string) ([]byte, error) {
 	var b []byte
 	var url string
 
-	url, err = service.Find(name + ".md")
+	url, err = service.Find(name)
 
 	if err != nil {
 		// URL not found
