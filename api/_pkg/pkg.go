@@ -7,7 +7,6 @@ import (
 	s "brewblog/_pkg/service"
 	v "brewblog/_pkg/service/vercelservice"
 	"encoding/json"
-	"log"
 )
 
 var service s.BlobService
@@ -65,6 +64,11 @@ func PageService(name string) ([]byte, error) {
 	return []byte(h), nil
 }
 
+type Page struct {
+	Title string `json:"title"`
+	URL   string `json:"url"`
+}
+
 func PagesService() ([]byte, error) {
 	var err error
 	var l []domain.Blob
@@ -76,21 +80,21 @@ func PagesService() ([]byte, error) {
 		return b, err
 	}
 
-	var articles []domain.Article
+	var pages []Page
 
 	for _, v := range l {
-		log.Println(v.URL)
 		var doc []byte
 		doc, err = service.Download(v.URL)
 		if err != nil {
 			break
 		}
 		m := p.ParseMeta(doc)
-		log.Println(m)
+		pages = append(pages,
+			Page{Title: m["title"], URL: m["URL"]},
+		)
 	}
 
-	b, err = json.Marshal(articles)
-	log.Println(string(b))
+	b, err = json.Marshal(pages)
 
 	return b, err
 }

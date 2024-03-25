@@ -103,7 +103,8 @@ func TestServiceDownload(t *testing.T) {
 var d = `---
 tags: Hello Kitty
 published: 2024-02-29
-URL: /hello-kitty
+URL: sample.md
+title: Lorem ipsum dolor sit amet
 ---
 
 # H1 Lorem ipsum dolor sit amet
