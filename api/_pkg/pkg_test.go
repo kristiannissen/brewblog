@@ -27,6 +27,21 @@ func TestPageService(t *testing.T) {
 	})
 }
 
+func TestPageRecentService(t *testing.T) {
+	_, err := PageRecentService()
+
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestPagesService(t *testing.T) {
+	_, err := PagesService()
+	if err != nil {
+		t.Errorf("Pages %s", err)
+	}
+}
+
 func TestServiceNew(t *testing.T) {
 	provider := s.ServiceProvider(&v.VercelService{})
 	t.Errorf("%T", provider)
@@ -129,7 +144,8 @@ func TestMeta(t *testing.T) {
 	})
 }
 
-func TestParseJSON(t *testing.T) {
+func TestParseStruct(t *testing.T) {
+	// TODO: Rename to renderStruct
 	m, err := parser.ParseJSON([]byte(d))
 
 	if err != nil {

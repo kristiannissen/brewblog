@@ -4,8 +4,27 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
+
+func TestRecent(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/recent", nil)
+	w := httptest.NewRecorder()
+
+	Recent(w, req)
+
+	res := w.Result()
+	defer res.Body.Close()
+
+	// resp, _ := io.ReadAll(res.Body)
+	// log.Println(string(resp))
+
+	if res.StatusCode != 200 {
+		t.Errorf("Wrong response %d", res.StatusCode)
+	}
+
+}
 
 func TestPage200(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/page?name=sample", nil)
@@ -51,8 +70,9 @@ func TestPages(t *testing.T) {
 	defer res.Body.Close()
 
 	data, _ := ioutil.ReadAll(res.Body)
+	// log.Println(string(data))
 
-	if string(data) != "Hello" {
+	if strings.HasPrefix(string(data), "{") == false {
 		t.Fatal("Empty list")
 	}
 }
