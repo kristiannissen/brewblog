@@ -7,8 +7,8 @@
 		<script async src="https://cdn.ampproject.org/v0.js"></script>
 		<script async custom-element="amp-render" src="https://cdn.ampproject.org/v0/amp-render-1.0.js"></script>
 		<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
-		<script async custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
-		<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+		<script async custom-element="amp-next-page" src="https://cdn.ampproject.org/v0/amp-next-page-1.0.js"></script>
 		<!-- Amp stuff //-->
 		<link rel="canonical" href="">
    		<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -207,33 +207,15 @@
 			<h1 class="font_heading"><a href="/">Hansen <span class="font_amp">&</span> Nissen</a></h1>
 		</header>
 		<main class="container__content">
-			<amp-render src="/articles.json?RANDOM" layout="responsive" height="0" width="320" id="amp-render">
+			<!-- Ampt render for recent story //-->
+			<amp-render src="/recent.json?RANDOM" layout="fixed-height" height="300">
 				<template type="amp-mustache">
-					{{#articles}}
-						<article class="container__article column">
-							<div class="content__header  pl-1 pr-1">
-								<h1 class="font_header mb-2">{{title}}</h1>
-							</div>
-							{{#paragraphs.0}}
-								<p class="font_para pl-1 pr-1">{{paragraph}} <a href="/post/#{{slug}}" class="">Læs mere</a></p>
-								{{#image}}
-									<figure class="content_media mb-2 mt-2">
-										<amp-img src="{{image}}" width="800" height="600" layout="intrinsic">
-										</amp-img>
-									</figure>
-								{{/image}}
-							{{/paragraphs.0}}
-						</article>
-					{{/articles}}
+				{{title}}
 				</template>
 			</amp-render>
 		</main>
-		<footer class="container__footer">
-			<div class="column">1</div>
-			<div class="column">2</div>
-		</footer>
-		<script>
-		
-		</script>
+		<amp-next-page src="https://brewblog-kohl.vercel.app/api/pages?RANDOM">
+			<footer>Footer</footer>
+		</amp-next-page>
 	</body>
 </html>
