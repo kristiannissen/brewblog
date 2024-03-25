@@ -67,6 +67,7 @@ func PageService(name string) ([]byte, error) {
 type Page struct {
 	Title string `json:"title"`
 	URL   string `json:"url"`
+	Image string `json:"image"`
 }
 
 func PagesService() ([]byte, error) {
@@ -90,7 +91,7 @@ func PagesService() ([]byte, error) {
 		}
 		m := p.ParseMeta(doc)
 		pages = append(pages,
-			Page{Title: m["title"], URL: "/api/page?name=" + v.PathName},
+			Page{Title: m["title"], URL: "/api/page?name=" + v.PathName, Image: "https://placehold.co/600x400"},
 		)
 	}
 
