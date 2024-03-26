@@ -6,6 +6,7 @@ import (
 )
 
 func Pages(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Cache-Control", "max-age=0, s-maxage=86400")
 	w.Header().Set("Content-type", "application/json")
 	// Set CORS headers
 	w.Header().Set("Access-Control-Allow-Origin", "*")

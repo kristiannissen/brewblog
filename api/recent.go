@@ -8,6 +8,7 @@ import (
 )
 
 func Recent(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Cache-Control", "max-age=0, s-maxage=86400")
 	w.Header().Set("Content-type", "text/html; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
