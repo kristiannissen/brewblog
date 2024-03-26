@@ -40,9 +40,8 @@ func RenderTemplate(b []byte) ([]byte, error) {
 					<li class="breadcrumb__list_item">Blog Post</li>
 				</ul>
 			</nav>
-			<h1 class="font_header mb-2">{{title}}</h1>
 		</div>
-					{{.}}
+		{{.}}
 	</template>
 </article>
 </main>
