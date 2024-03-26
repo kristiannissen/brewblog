@@ -47,7 +47,7 @@ func ParseJSON(b []byte) (domain.Article, error) {
 	// Update s
 	s = s[strings.Index(s, article.Title)+len(article.Title):]
 	// Split s by DLB
-	for _, p := range strings.Split(s, DLB) {
+	for _, p := range strings.Split(strings.ReplaceAll(s, "\r\n", "\n"), DLB) {
 		// Skip empty lines
 		if m, err := regexp.MatchString(`^\S`, p); err == nil {
 			if m == true {
@@ -60,15 +60,17 @@ func ParseJSON(b []byte) (domain.Article, error) {
 					for _, l := range strings.Split(p, LB) {
 						img := parseImage(l)
 						// Populate paragraph images
-						para.Images = append(para.Images, domain.Image{
-							Title: img["title"],
-							URL:   img["url"],
-						})
+						if len(img) > 0 {
+							para.Images = append(para.Images, domain.Image{
+								Title: img["title"],
+								URL:   img["url"],
+							})
+						}
 					}
 				case "#":
 					para.Header = parseHeader(p)
 				default:
-					para.Body = strings.TrimSpace(p)
+					para.Body = strings.TrimSpace(strings.ReplaceAll(p, "\n", "<br>"))
 				}
 				// Populate article paragraphs
 				article.Paragraphs = append(article.Paragraphs, para)
@@ -77,6 +79,10 @@ func ParseJSON(b []byte) (domain.Article, error) {
 			log.Println(err)
 		}
 	}
+
+	// for i, j := range article.Paragraphs {
+	// log.Println(i, j.Body, j.Images)
+	// }
 
 	return article, nil
 }
@@ -93,7 +99,7 @@ func parseImage(s string) map[string]string {
 }
 
 func parseHeader(s string) string {
-	return s
+	return strings.TrimSpace(strings.ReplaceAll(s, "#", ""))
 }
 
 func ParseMeta(b []byte) map[string]string {
@@ -110,9 +116,9 @@ func ParseMeta(b []byte) map[string]string {
 		f = strings.Index(s, SEP) + len(SEP)
 		l = strings.Index(s[f:], SEP) + len(SEP)
 
-		for _, line := range strings.Split(s[f:l], "\n") {
+		for _, line := range strings.Split(s[f:l], LB) {
 			// Sprint string by line
-			if line != "" {
+			if strings.Index(line, ":") > -1 {
 				// Split lne by kv
 				kv := strings.Split(line, ":")
 				// Populate map

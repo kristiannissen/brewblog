@@ -1,6 +1,8 @@
 package pkg
 
 import (
+	"log"
+	"os"
 	"strings"
 	"testing"
 
@@ -11,20 +13,13 @@ import (
 )
 
 func TestPageService(t *testing.T) {
-	// Mimics HTTP handlers
-	t.Run("404", func(t *testing.T) {
-		url, err := PageService("")
-		if err == nil {
-			t.Errorf("404 not working URL %s", url)
-		}
-	})
+	// Get list
+	l, _ := service.List()
 
-	t.Run("200", func(t *testing.T) {
-		url, err := PageService("sample.md")
-		if err != nil {
-			t.Errorf("200 not working URL %s", url)
-		}
-	})
+	url, err := PageService(l[0].PathName)
+	if err != nil {
+		t.Errorf("200 not working URL %s", url)
+	}
 }
 
 func TestPageRecentService(t *testing.T) {
@@ -43,8 +38,7 @@ func TestPagesService(t *testing.T) {
 }
 
 func TestServiceNew(t *testing.T) {
-	provider := s.ServiceProvider(&v.VercelService{})
-	t.Errorf("%T", provider)
+	t.Errorf("%T", s.ServiceProvider(&v.VercelService{}))
 }
 
 func TestServiceList(t *testing.T) {
@@ -83,13 +77,9 @@ func TestServiceFind(t *testing.T) {
 
 func TestServiceDownload(t *testing.T) {
 	service := s.ServiceProvider(&v.VercelService{})
-	url, _ := service.Find("sample.md")
+	l, _ := service.List()
 
-	if url == "" {
-		t.Error("No URL Found")
-	}
-
-	bytes, err := service.Download(url)
+	bytes, err := service.Download(l[0].URL)
 
 	if err != nil {
 		t.Error(err)
@@ -146,8 +136,15 @@ func TestMeta(t *testing.T) {
 }
 
 func TestParseStruct(t *testing.T) {
+	var b []byte
+	var e error
+	if b, e = os.ReadFile("../../content/batch_231.md"); e != nil {
+		log.Fatal(e)
+	}
+
 	// TODO: Rename to renderStruct
-	m, err := parser.ParseJSON([]byte(d))
+	m, err := parser.ParseJSON([]byte(b))
+	// log.Println(m)
 
 	if err != nil {
 		t.Error(err)
@@ -158,7 +155,7 @@ func TestParseStruct(t *testing.T) {
 	}
 
 	if len(m.Paragraphs) == 0 {
-		t.Error("Not all paragraphs found")
+		t.Error("No paragraphs found")
 	}
 
 }

@@ -17,9 +17,9 @@ type Image struct {
 }
 
 type Paragraph struct {
-	Body   string  `json:"body"`
-	Header string  `json:"header"`
-	Images []Image `json:"images"`
+	Body   string  `json:"body,omitempty"`
+	Header string  `json:"header,omitempty"`
+	Images []Image `json:"images,omitempty"`
 }
 
 type Article struct {

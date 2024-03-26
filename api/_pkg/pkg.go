@@ -32,7 +32,7 @@ func PageRecentService() ([]byte, error) {
 	m := p.StripMeta(b)
 	var a domain.Article
 	a, err = p.ParseJSON(m)
-	b, err = json.Marshal(a)
+	b, err = json.MarshalIndent(a, "", "\t")
 
 	return b, err
 }
@@ -83,7 +83,7 @@ func PagesService() ([]byte, error) {
 
 	var pages []Page
 
-	for _, v := range l {
+	for _, v := range l[1:] {
 		var doc []byte
 		doc, err = service.Download(v.URL)
 		if err != nil {
@@ -96,7 +96,7 @@ func PagesService() ([]byte, error) {
 		)
 	}
 
-	b, err = json.Marshal(pages)
+	b, err = json.MarshalIndent(pages, "", "\t")
 
 	return b, err
 }

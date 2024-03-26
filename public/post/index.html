@@ -194,17 +194,20 @@
 			font-family: var(--ff-para);
 		}
 		</style>
+		<script id="change-source" type="text/plain">
+			console.log("Hello")
+		</script>
 	</head>
 	<body data-page="post">
-		<header class="container_header header_logo">
+		<header class="container_header header_logo" next-page-hide>
 			<h1 class="font_heading"><a href="/">Hansen <span class="font_amp">&</span> Nissen</a></h1>
 		</header>
 		<main class="container__content">
 			<article class="container__article column">
-				<amp-render src="/post/article.json" layout="responsive" height="0" width="320" id="amp-render">
+				<amp-render src="http://localhost:9001/api/recent" layout="responsive" height="0" width="320">
 				<template type="amp-mustache">
 					<div class="content__header content__navigation pl-1 pr-1">
-						<nav class="navigation__breadcrumb">
+						<nav class="navigation__breadcrumb" next-page-hide>
 							<ul class="breadcrumb__list">
 								<li class="breadcrumb__list_item"><a href="/">Hjem</a></li>
 								<li class="breadcrumb__list_item">Blog Post</li>
@@ -226,20 +229,6 @@
 					{{/paragraphs}}
 				</template>
 			</amp-render>
-			<amp-render src="/articles.json?RANDOM" layout="responsive" height="0" width="320" id="amp-render-related">
-				<template type="amp-mustache">
-					<aside class="container__aside rounded-lg mb-2 p-2">
-						<h2 class="font_header__sub">Relaterede artikler</h2>
-						<nav class="">
-							<ul class="breadcrumb__list>
-							{{#articles}}
-								<li class="breadcrumb__list_item"><a href="/post/#{{slug}}">{{title}}</a></li>
-							{{/articles}}
-							</ul>
-						</nav>
-					</aside>
-				</template>
-			</amp-render>
 			</article>
 		</main>
 		<footer class="container__footer">
@@ -248,13 +237,5 @@
 			</div>
 			<div class="column">2</div>
 		</footer>
-
-		<script>
-		(function update() {
-			var elm = document.getElementById("amp-render")
-			var h = location.hash.substring(1);
-			elm.setAttribute("src", "/post/article.json?name="+ h)
-		})();
-		</script>
 	</body>
 </html>

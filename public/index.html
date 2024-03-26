@@ -156,8 +156,7 @@
 				margin-top: 0;
 			}
 			.container__content .container__article:nth-child(-n + 1) .font_para {
-				columns: 2;
-				column-gap: var(--space-1);
+				
 				
 			}
 		  }
@@ -209,7 +208,7 @@
 		<main class="container__content">
 			<article class="container__article column">
 			<!-- Ampt render for recent story //-->
-			<amp-render src="https://brewblog-kohl.vercel.app/api/recent" layout="intrinsic" width="100vw" height="100vw">
+			<amp-render src="/api/recent" layout="intrinsic" width="100vw" height="100vw">
 				<template type="amp-mustache">
 				<div class="content__header content__navigation pl-1 pr-1">
 						<nav class="navigation__breadcrumb">
@@ -223,7 +222,9 @@
 						{{#header}}
 							<h2 class="font_header__sub pl-1 pr-1">{{header}}</h2>
 						{{/header}}
-						<p class="font_para pl-1 pr-1">{{body}}</p>
+						{{#body}}
+							<p class="font_para pl-1 pr-1">{{body}}</p>
+						{{/body}}
 						{{#images}}
 							<figure class="content_media mb-2 mt-2">
 								<amp-img src="{{url}}" width="800" height="600" layout="intrinsic">
@@ -235,7 +236,7 @@
 			</amp-render>
 			</article>
 		</main>
-		<amp-next-page src="https://brewblog-kohl.vercel.app/api/pages">
+		<amp-next-page src="/api/pages">
 			<footer class="container__footer">
 				<div class="column">
 					<b>Stærke øl til svage mænd!</b>
