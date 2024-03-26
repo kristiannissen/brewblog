@@ -89,6 +89,7 @@ func PagesService() ([]byte, error) {
 		if err != nil {
 			break
 		}
+		// TODO: Add image from meta or fallback
 		m := p.ParseMeta(doc)
 		pages = append(pages,
 			Page{Title: m["title"], URL: "/api/page?name=" + v.PathName, Image: "https://placehold.co/600x400"},
