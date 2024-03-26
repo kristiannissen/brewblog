@@ -8,6 +8,7 @@ import (
 )
 
 func Page(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Cache-Control", "s-maxage=1, stale-while-revalidate=59")
 	w.Header().Set("Content-type", "text/html; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
